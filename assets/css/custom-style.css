@@ -1,4 +1,4 @@
-﻿/*--------------------------------------------------------------
+/*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
 body {
@@ -298,7 +298,7 @@ a {
   display: flex !important;
   flex-wrap: wrap;
   list-style: none;
-  padding: 0;
+  padding: 15px 0;
   margin: 0;
   color: #cda45e;
 }
@@ -352,6 +352,12 @@ a {
 
 #header .logo a {
   color: #333;
+}
+
+#header .logo img {
+  display: block;
+  width: auto;
+  max-height: 62px;
 }
 
 /*--------------------------------------------------------------
@@ -516,6 +522,10 @@ a {
 }
 
 @media (max-width: 991px) {
+  #galleryItems .GB-media .GB-overlay {
+    display: none !important;
+  }
+
   .mobile-nav-toggle {
     display: block;
   }
@@ -784,7 +794,7 @@ body.mobile-nav-open {
   background: url('../img/RiversideDeck.png') top center;
 }
 .hero2 {
-  background: url('../img/Banyan Retreat.jpg') top center;
+  background: url('../img/Banyan-Retreat.webp') top center;
 }
 .hero3 {
   background: url('../img/aboutusbanner.jpg') top center;
@@ -947,6 +957,10 @@ body.mobile-nav-open {
 }
 
 @media (max-width: 991px) {
+  #galleryItems .GB-media .GB-overlay {
+    display: none !important;
+  }
+
   #hero.hero1,
   #hero.hero2,
   #hero.hero3,
@@ -1727,6 +1741,245 @@ section {
   transform: scale(1.1);
 }
 
+.gallery-title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.gallery-title-wrap p {
+  margin: 0;
+}
+
+.gallery-filter-box {
+  position: relative;
+  flex: 0 1 360px;
+  min-width: 250px;
+}
+
+.gallery-filter-box::after {
+  content: '\f282';
+  font-family: 'bootstrap-icons';
+  font-size: 14px;
+  color: #6c6359;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.gallery-filter-box:focus-within::after {
+  transform: translateY(-50%) rotate(180deg);
+  color: #98652d;
+}
+
+.gallery-property-filter {
+  width: 100%;
+  border: 1px solid rgba(152, 101, 45, 0.45);
+  border-radius: 999px;
+  background: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: #2f2b27;
+  padding: 12px 48px 12px 18px;
+  min-height: 56px;
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.2;
+  box-shadow: 0 8px 20px rgba(20, 14, 9, 0.08);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.gallery-property-filter:hover {
+  border-color: rgba(152, 101, 45, 0.7);
+  box-shadow: 0 10px 24px rgba(20, 14, 9, 0.11);
+}
+
+.gallery-property-filter:focus {
+  outline: none;
+  border-color: #98652d;
+  box-shadow: 0 0 0 0.22rem rgba(152, 101, 45, 0.18);
+  transform: translateY(-1px);
+}
+
+#galleryItems {
+  padding-top: 8px;
+}
+
+#galleryItems .GB-media {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(24, 17, 10, 0.14);
+  transform: translateY(0);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: gallery-card-reveal 0.6s ease both;
+}
+
+#galleryItems .GB-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.03) 45%, rgba(0, 0, 0, 0.28) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#galleryItems .GB-media:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(24, 17, 10, 0.22);
+}
+
+#galleryItems .GB-media:hover::before {
+  opacity: 1;
+}
+
+#galleryItems .GB-media .GB-image {
+  transition: transform 0.7s ease, filter 0.35s ease, opacity 0.35s ease;
+}
+
+#galleryItems .GB-media:hover .GB-image {
+  transform: scale(1.06);
+  filter: saturate(1.04);
+}
+
+#galleryItems .GB-media .GB-overlay {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 14px 14px 12px;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+#galleryItems .GB-media:hover .GB-overlay {
+  transform: translateY(0);
+}
+
+#galleryItems .GB-media > a.gallery-lightbox {
+  display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  touch-action: manipulation;
+}
+
+#galleryItems .GB-media > a.gallery-lightbox img {
+  display: block;
+  width: 100%;
+}
+
+@keyframes gallery-card-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #galleryItems .GB-media {
+    animation: none;
+    transition: none;
+  }
+
+  #galleryItems .GB-media .GB-image,
+  #galleryItems .GB-media .GB-overlay {
+    transition: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .gallery-title-wrap {
+    justify-content: center;
+  }
+
+  .gallery-title-wrap p {
+    width: 100%;
+    text-align: center;
+  }
+
+  .gallery-filter-box {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .gallery-property-filter {
+    min-height: 50px;
+    font-size: 15px;
+    padding: 10px 42px 10px 15px;
+  }
+
+  .gallery-filter-box::after {
+    right: 15px;
+    font-size: 13px;
+  }
+
+  #galleryItems .GB-media {
+    border-radius: 0;
+    border: 1px solid rgba(152, 101, 45, 0.22);
+    box-shadow: 0 10px 22px rgba(24, 17, 10, 0.16);
+  }
+
+  #galleryItems .GB-media::before {
+    opacity: 0;
+  }
+
+  #galleryItems .GB-media .GB-image,
+  #galleryItems .GB-media .img-fluid1 {
+    border-radius: 0 !important;
+  }
+
+  #galleryItems .GB-media .GB-overlay {
+    left: 0;
+    right: 0;
+    padding: 12px 10px 8px;
+    opacity: 0;
+    transform: translateY(8px);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.45) 72%, rgba(0, 0, 0, 0.72) 100%);
+  }
+
+  #galleryItems .GB-media .GB-overlay h5 {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  #galleryItems .GB-media .GB-overlay p {
+    display: none;
+  }
+
+  #galleryItems .GB-media:active {
+    transform: scale(0.992);
+  }
+
+  #galleryItems .GB-media:hover::before,
+  #galleryItems .GB-media:active::before,
+  #galleryItems .GB-media:focus-within::before {
+    opacity: 0.16;
+  }
+
+  #galleryItems .GB-media:hover .GB-overlay,
+  #galleryItems .GB-media:active .GB-overlay,
+  #galleryItems .GB-media:focus-within .GB-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /*--------------------------------------------------------------
 # Chefs
 --------------------------------------------------------------*/
@@ -1957,6 +2210,238 @@ section {
   background: #d3af71;
 }
 
+.wedding-page main {
+  background: #efefef;
+}
+
+.wedding-hero-section .wedding-video-box {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.wedding-intro {
+  background: #f7f7f7;
+  text-align: center;
+  padding: 64px 0 56px;
+}
+
+.wedding-intro .container {
+  max-width: 1060px;
+}
+
+.wedding-intro-title {
+  margin: 0 0 24px;
+  font-family: 'Trajan', serif;
+  font-size: 40px;
+  letter-spacing: 0.38em;
+  color: #2f2b27;
+}
+
+.wedding-intro p {
+  margin: 0 auto;
+  max-width: 980px;
+  color: #4d4a47;
+  font-size: 21px;
+  line-height: 1.8;
+}
+
+.wedding-signature {
+  padding: 48px 0 56px;
+  background: #ececec;
+}
+
+.wedding-signature-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.wedding-signature-head h3 {
+  margin: 0;
+  font-family: 'Trajan', serif;
+  font-size: 30px;
+  letter-spacing: 0.26em;
+  color: #2f2b27;
+}
+
+.wedding-signature-arrows {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.wedding-signature-arrows button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(152, 101, 45, 0.45);
+  border-radius: 0;
+  background: #f5f2ee;
+  color: #98652d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.wedding-signature-arrows button:hover {
+  background: #98652d;
+  color: #fff;
+}
+
+.wedding-track-viewport {
+  overflow: hidden;
+  padding: 2px;
+}
+
+.wedding-track {
+  --wedding-track-gap: 16px;
+  display: flex;
+  gap: var(--wedding-track-gap);
+  transform: translate3d(0, 0, 0);
+  transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.wedding-card {
+  flex: 0 0 calc((100% - (var(--wedding-track-gap) * 2)) / 3);
+  background: linear-gradient(180deg, #ffffff 0%, #fbf8f3 100%);
+  border: 1px solid rgba(152, 101, 45, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0.9;
+  filter: saturate(0.93);
+  transform: translateY(8px);
+  box-shadow: 0 6px 14px rgba(35, 27, 20, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
+}
+
+.wedding-card.is-active {
+  opacity: 1;
+  filter: none;
+  transform: translateY(0);
+  box-shadow: 0 14px 30px rgba(27, 22, 16, 0.14);
+  animation: wedding-card-enter 0.55s ease;
+}
+
+.wedding-card img {
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.wedding-card-body {
+  padding: 10px 10px 9px;
+}
+
+.wedding-card h4 {
+  margin: 0 0 10px;
+  font-family: 'Trajan', serif;
+  font-size: clamp(12px, 0.9vw, 14px);
+  letter-spacing: 0.065em;
+  line-height: 1.3;
+  color: #2f2b27;
+  text-align: center;
+  min-height: 44px;
+}
+
+.wedding-feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px 6px;
+}
+
+.wedding-feature-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 56px;
+  padding: 6px 5px;
+  border: 1px solid rgba(152, 101, 45, 0.18);
+  border-radius: 9px;
+  background: #fcfaf7;
+  box-shadow: 0 3px 8px rgba(152, 101, 45, 0.07);
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.wedding-feature-list li:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 12px rgba(152, 101, 45, 0.11);
+}
+
+.wedding-feature-list i {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #98652d;
+  background: rgba(152, 101, 45, 0.12);
+  border: 1px solid rgba(152, 101, 45, 0.22);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.wedding-feature-list span {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(10.5px, 0.82vw, 12.5px);
+  line-height: 1.15;
+  color: #3e3b37;
+}
+
+.wedding-signature-arrows button.is-disabled,
+.wedding-signature-arrows button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: #f2efea;
+  color: #98652d;
+}
+
+@keyframes wedding-card-enter {
+  0% {
+    opacity: 0.65;
+    transform: translateY(16px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wedding-reach {
+  background: #f3f3f3;
+  padding: 54px 0 72px;
+}
+
+.wedding-reach h3 {
+  margin-bottom: 2.3rem !important;
+}
+
+.wedding-reach .resort-card {
+  box-shadow: none;
+  border-color: rgba(152, 101, 45, 0.25);
+}
+
+.wedding-reach .resort-copy h4 {
+  font-size: 17px;
+}
+
+.wedding-reach .resort-copy p,
+.wedding-reach .resort-copy .resort-phone {
+  font-size: 14px;
+}
+
 .contact-resorts {
   padding-bottom: 4rem;
 }
@@ -2048,6 +2533,70 @@ section {
 }
 
 @media (max-width: 991px) {
+  #galleryItems .GB-media .GB-overlay {
+    display: none !important;
+  }
+
+  .wedding-hero-section .wedding-video-box {
+    height: 68vh !important;
+    min-height: 420px;
+  }
+
+  .wedding-intro {
+    padding: 44px 0 38px;
+  }
+
+  .wedding-intro-title {
+    font-size: 28px;
+    letter-spacing: 0.22em;
+    margin-bottom: 16px;
+  }
+
+  .wedding-intro p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .wedding-signature {
+    padding: 36px 0 40px;
+  }
+
+  .wedding-signature-head h3 {
+    font-size: 20px;
+    letter-spacing: 0.17em;
+  }
+
+  .wedding-signature-arrows button {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .wedding-track {
+    --wedding-track-gap: 14px;
+  }
+
+  .wedding-card {
+    flex-basis: calc((100% - var(--wedding-track-gap)) / 2);
+  }
+
+  .wedding-card h4 {
+    min-height: auto;
+    margin-bottom: 9px;
+  }
+
+  .wedding-feature-list span {
+    font-size: 12px;
+  }
+
+  .wedding-feature-list li {
+    min-height: 54px;
+  }
+
+  .wedding-reach {
+    padding: 38px 0 48px;
+  }
+
   .contact-resorts {
     padding-bottom: 2.6rem;
   }
@@ -2070,6 +2619,65 @@ section {
 
   .contact-resorts .resort-icon {
     font-size: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .wedding-hero-section .wedding-video-box {
+    height: 68vh !important;
+    min-height: 420px;
+  }
+
+  .wedding-intro-title {
+    font-size: 22px;
+    letter-spacing: 0.16em;
+  }
+
+  .wedding-track {
+    --wedding-track-gap: 12px;
+  }
+
+  .wedding-card {
+    flex-basis: 100%;
+    border-radius: 10px;
+  }
+
+  .wedding-card h4 {
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+
+  .wedding-card img {
+    aspect-ratio: 8 / 5;
+  }
+
+  .wedding-card-body {
+    padding: 9px 8px 8px;
+  }
+
+  .wedding-feature-list {
+    gap: 7px 5px;
+  }
+
+  .wedding-feature-list li {
+    min-height: 52px;
+    padding: 6px 4px;
+  }
+
+  .wedding-feature-list i {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+  }
+
+  .wedding-feature-list span {
+    font-size: 11.5px;
+  }
+
+  .wedding-signature-head {
+    margin-bottom: 0.9rem;
   }
 }
 
@@ -2097,22 +2705,120 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #fff;
-  padding: 0 0 30px 0;
-  color: #000;
+  background: linear-gradient(180deg, #f8f4ee 0%, #ffffff 64%);
+  border-top: 1px solid rgba(166, 134, 86, 0.24);
+  padding: 0;
+  color: #2f2b27;
   font-size: 14px;
 }
 
 #footer .footer-top {
-  background: #fff;
+  background: transparent;
   /*border-top: 1px solid #37332a;
         border-bottom: 1px solid #28251f;*/
-  padding: 60px 0 30px 0;
+  padding: 30px 0;
+}
+
+#footer .footer-top .row {
+  row-gap: 16px;
+  align-items: stretch;
 }
 
 #footer .footer-top .footer-info {
-  margin-top: -20px;
-  margin-bottom: 30px;
+  margin: 0;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#footer .footer-top .footer-info img {
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 14px rgba(52, 38, 20, 0.12));
+}
+
+#footer .footer-top .quicklinks {
+  margin: 0;
+  padding: 0 8px;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  min-height: 100%;
+}
+
+#footer .footer-top .quicklinks h6 {
+  margin: 0 0 10px;
+  font-family: 'Trajan', serif;
+  letter-spacing: 0.08em;
+  color: #2e2a25;
+}
+
+#footer .footer-top .quicklinks ul {
+  margin: 0;
+  padding: 0;
+}
+
+#footer .footer-top .quicklinks ul li {
+  margin: 0;
+  list-style: none;
+  line-height: 1.4;
+}
+
+#footer .footer-top .quicklinks ul li + li {
+  margin-top: 6px;
+}
+
+#footer .footer-top .quicklinks ul a,
+#footer .footer-top .quicklinks p a {
+  color: #3f3a34 !important;
+  transition: color 0.22s ease, transform 0.22s ease;
+}
+
+#footer .footer-top .quicklinks ul a:hover,
+#footer .footer-top .quicklinks p a:hover {
+  color: #98652d !important;
+  transform: translateX(2px);
+}
+
+#footer .footer-top .quicklinks p {
+  margin-bottom: 8px !important;
+  line-height: 1.55;
+}
+
+#footer .footer-top .quicklinks p:last-child {
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 992px) {
+  #footer {
+    font-size: 16px;
+  }
+
+  #footer .footer-top {
+    padding: 30px 0;
+  }
+
+  #footer .footer-top .footer-info img {
+    width: 210px;
+  }
+
+  #footer .footer-top .quicklinks h6 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  #footer .footer-top .quicklinks ul a,
+  #footer .footer-top .quicklinks p a {
+    font-size: 18px !important;
+    line-height: 1.5;
+  }
+
+  #footer .footer-top .quicklinks ul li + li {
+    margin-top: 8px;
+  }
 }
 
 #footer .footer-top .footer-info h3 {
@@ -2507,6 +3213,7 @@ p {
   height: 80%;
   width: 12%;
   z-index: 100;
+  pointer-events: none;
 }
 
 .slick-slider:after {
@@ -2890,6 +3597,10 @@ input[type='date']:focus::-webkit-datetime-edit {
 # Mobile Optimizations
 --------------------------------------------------------------*/
 @media (max-width: 991px) {
+  #galleryItems .GB-media .GB-overlay {
+    display: none !important;
+  }
+
   html,
   body {
     overflow-x: hidden;
@@ -2897,7 +3608,7 @@ input[type='date']:focus::-webkit-datetime-edit {
 
   #header {
     top: 0;
-    padding: 10px 0;
+    padding: 15px 0;
     background: rgba(255, 255, 255, 0.95);
   }
 
@@ -3026,7 +3737,7 @@ input[type='date']:focus::-webkit-datetime-edit {
   }
 
   #footer .footer-top {
-    padding: 28px 0 22px;
+    padding: 24px 0 30px;
     background: transparent;
   }
 
@@ -3035,29 +3746,36 @@ input[type='date']:focus::-webkit-datetime-edit {
     padding-right: 14px;
   }
 
+  #footer .footer-top .row {
+    row-gap: 12px;
+  }
+
   #footer .footer-top .footer-info {
-    margin: 0 0 16px;
+    margin: 0 0 10px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #footer .footer-top .footer-info img {
-    width: 72px;
-    max-width: 72px;
+    width: 108px;
+    max-width: 108px;
     height: auto;
-    padding: 10px;
-    background: #fff;
-    border-radius: 14px;
-    border: 1px solid rgba(166, 134, 86, 0.24);
-    box-shadow: 0 8px 18px rgba(89, 70, 42, 0.12);
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    border: 0;
+    box-shadow: 0 8px 18px rgba(76, 56, 26, 0.12);
   }
 
   #footer .footer-top .quicklinks {
-    margin: 0 0 14px;
+    margin: 0 0 8px;
     padding: 14px 14px 12px;
-    border-radius: 14px;
+    border-radius: 12px;
     background: #fff;
-    border: 1px solid rgba(166, 134, 86, 0.22);
-    box-shadow: 0 8px 20px rgba(49, 35, 18, 0.08);
+    border: 1px solid rgba(166, 134, 86, 0.24);
+    box-shadow: 0 8px 20px rgba(49, 35, 18, 0.1);
   }
 
   #footer .footer-top .quicklinks h6 {
@@ -3148,46 +3866,54 @@ input[type='date']:focus::-webkit-datetime-edit {
     display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     top: 50%;
     transform: translateY(-50%);
-    border-radius: 999px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.92) !important;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: rgba(18, 22, 34, 0.65) !important;
     background-image: none !important;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    z-index: 20;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.34);
+    z-index: 250;
     color: transparent;
+    pointer-events: auto;
   }
 
   #gallery .slick-prev {
-    left: 10px;
+    left: 12px !important;
   }
 
   #gallery .slick-next {
-    right: 10px;
+    right: 12px !important;
   }
 
   #gallery .slick-prev:before,
   #gallery .slick-next:before {
-    font-family: inherit;
+    font-family: Arial, sans-serif;
     font-size: 24px;
+    font-weight: 700;
     line-height: 1;
-    color: #6f7074;
-    opacity: 1;
+    color: #fff !important;
+    opacity: 1 !important;
+    display: block;
   }
 
   #gallery .slick-prev:before {
-    content: '‹';
+    content: '<' !important;
   }
 
   #gallery .slick-next:before {
-    content: '›';
+    content: '>' !important;
   }
 }
 
 @media (max-width: 480px) {
+  .wedding-hero-section .wedding-video-box {
+    height: 62vh !important;
+    min-height: 360px;
+  }
+
   #footer .footer-top {
     padding: 24px 0 18px;
   }
@@ -3236,14 +3962,469 @@ input[type='date']:focus::-webkit-datetime-edit {
 
   #gallery .slick-prev,
   #gallery .slick-next {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     top: 50%;
   }
 
   #gallery .slick-prev:before,
   #gallery .slick-next:before {
-    font-size: 20px;
+    font-size: 22px;
   }
 }
+
+/*--------------------------------------------------------------
+# Final Polish Layer
+--------------------------------------------------------------*/
+:root {
+  --excel-radius-sm: 10px;
+  --excel-radius-md: 14px;
+  --excel-radius-pill: 999px;
+  --excel-shadow-soft: 0 8px 24px rgba(35, 27, 20, 0.12);
+  --excel-shadow-lift: 0 16px 34px rgba(35, 27, 20, 0.16);
+  --excel-transition-fast: 0.3s ease;
+  --excel-transition-slow: 0.45s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+section {
+  padding: clamp(38px, 7vw, 86px) 0;
+}
+
+.section-title p {
+  font-size: clamp(24px, 3.4vw, 54px);
+  letter-spacing: clamp(1.5px, 0.45vw, 6px);
+}
+
+.section-header p {
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stay-meta-list {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stay-meta-list li {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.stay-meta-list li.px-5 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.stay-meta-list .stay-meta-icon {
+  font-size: 20px;
+  line-height: 1;
+  color: #6f6a63;
+  flex: 0 0 auto;
+}
+
+.gallery-property-filter {
+  padding-right: 56px;
+}
+
+.gallery-filter-box::after {
+  right: 20px;
+}
+
+#header {
+  transition: background-color var(--excel-transition-fast), box-shadow var(--excel-transition-fast), padding var(--excel-transition-fast), -webkit-backdrop-filter var(--excel-transition-fast), backdrop-filter var(--excel-transition-fast);
+}
+
+#header.header-scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 8px 24px rgba(31, 31, 31, 0.16);
+}
+
+#header .logo img {
+  transition: transform var(--excel-transition-fast), filter var(--excel-transition-fast);
+}
+
+#header .logo:hover img {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 8px 16px rgba(35, 27, 20, 0.18));
+}
+
+.btn-ind,
+.wedding-signature-arrows button,
+.contact-resorts .resort-social a {
+  transition: transform var(--excel-transition-fast), box-shadow var(--excel-transition-fast), background-color var(--excel-transition-fast), color var(--excel-transition-fast), border-color var(--excel-transition-fast);
+}
+
+.btn-ind:hover,
+.wedding-signature-arrows button:hover,
+.contact-resorts .resort-social a:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.swiper .content-wrapper img,
+.contact-resorts .resort-card,
+.wedding-card,
+#galleryItems .GB-media,
+.quicklinks {
+  transition: transform var(--excel-transition-slow), box-shadow var(--excel-transition-slow), border-color var(--excel-transition-fast), background-color var(--excel-transition-fast);
+}
+
+.contact-resorts .resort-card:hover,
+.wedding-card:hover,
+.quicklinks:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--excel-shadow-soft);
+}
+
+.swiper .content-wrapper:hover img {
+  transform: scale(1.02);
+}
+
+#mobile-menu-panel {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+#mobile-menu-panel.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#mobile-menu-panel .mobile-menu-clone {
+  transform: translateY(-12px) scale(0.985);
+  opacity: 0;
+  transition: transform 0.32s ease, opacity 0.28s ease;
+}
+
+#mobile-menu-panel.open .mobile-menu-clone {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.58s ease, transform 0.58s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top {
+  right: 18px;
+  bottom: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--excel-radius-pill);
+  border: 1px solid rgba(205, 164, 94, 0.66);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 22px rgba(29, 24, 18, 0.18);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.back-to-top i {
+  color: #98652d;
+  transition: transform var(--excel-transition-fast);
+}
+
+.back-to-top:hover {
+  background: #cda45e;
+  border-color: #cda45e;
+  transform: translateY(-2px) scale(1.03);
+}
+
+.back-to-top:hover i {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1199px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    width: min(100%, 1120px);
+  }
+}
+
+@media (min-width: 1600px) {
+  .container-xl,
+  .container-fluid.container-xl {
+    max-width: 1460px;
+  }
+}
+
+@media (min-width: 992px) {
+  #header {
+    padding: 5px 0;
+  }
+
+  #header .logo img {
+    max-height: 46px;
+  }
+
+  .navbar a,
+  .navbar a:focus {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 24px;
+  }
+
+  #events .swiper,
+  #gallery-footer .swiper {
+    position: relative;
+  }
+
+  #events .swiper .swiper-nav-wrapper,
+  #gallery-footer .swiper .swiper-nav-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(220px, 33vw, 520px);
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    z-index: 8;
+  }
+
+  #events .swiper .swiper-nav-wrapper .swiper-button-prev,
+  #gallery-footer .swiper .swiper-nav-wrapper .swiper-button-prev {
+    left: 23%;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: auto;
+  }
+
+  #events .swiper .swiper-nav-wrapper .swiper-button-next,
+  #gallery-footer .swiper .swiper-nav-wrapper .swiper-button-next {
+    right: 23%;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: auto;
+  }
+
+  .slick-slider .slick-prev,
+  .slick-slider .slick-next {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .slick-slider .slick-prev {
+    left: 23%;
+  }
+
+  .slick-slider .slick-next {
+    right: 23%;
+  }
+
+  #galleryItems .GB-media .GB-overlay {
+    z-index: 5;
+    opacity: 1;
+    transform: translateY(0);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.46) 74%, rgba(0, 0, 0, 0.68) 100%);
+  }
+
+  #galleryItems .GB-media > a.gallery-lightbox {
+    z-index: 1;
+  }
+
+  #galleryItems .GB-media::before {
+    opacity: 0.14;
+  }
+}
+
+@media (max-width: 991px) {
+  #galleryItems .GB-media .GB-overlay {
+    display: none !important;
+  }
+
+  section {
+    padding: clamp(32px, 8vw, 52px) 0;
+  }
+
+  #header {
+    padding: 10px 0;
+  }
+
+  #header .logo img {
+    max-height: 44px;
+  }
+
+  .swiper-data p {
+    font-size: 15px;
+    line-height: 1.58;
+  }
+
+  .gallery-property-filter {
+    padding-right: 50px;
+  }
+
+  .gallery-filter-box::after {
+    right: 16px;
+  }
+
+  .swiper .swiper-nav-wrapper .swiper-button-prev,
+  .swiper .swiper-nav-wrapper .swiper-button-next {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    background: rgba(19, 22, 30, 0.62);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.36);
+  }
+
+  .swiper .swiper-nav-wrapper .swiper-button-prev {
+    left: 12px !important;
+  }
+
+  .swiper .swiper-nav-wrapper .swiper-button-next {
+    right: 12px !important;
+    left: auto !important;
+  }
+
+  .swiper .swiper-nav-wrapper .swiper-button-prev::after,
+  .swiper .swiper-nav-wrapper .swiper-button-next::after {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #gallery .slick-prev,
+  #gallery .slick-next {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 11px !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.78) !important;
+    background: rgba(19, 22, 30, 0.62) !important;
+  }
+
+  #gallery .slick-prev {
+    left: 12px !important;
+  }
+
+  #gallery .slick-next {
+    right: 12px !important;
+  }
+
+  .contact-resorts .resort-card,
+  .wedding-card,
+  #galleryItems .GB-media {
+    box-shadow: 0 8px 20px rgba(35, 27, 20, 0.14);
+  }
+
+  #footer .footer-top .footer-info img {
+    width: 122px;
+    max-width: 122px;
+  }
+}
+
+@media (max-width: 575px) {
+  section {
+    padding: clamp(28px, 7.8vw, 44px) 0;
+  }
+
+  #video-box,
+  .wedding-hero-section .wedding-video-box {
+    min-height: 330px !important;
+  }
+
+  #mobile-menu-panel .mobile-menu-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  #mobile-menu-panel .mobile-menu-clone {
+    top: 66px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    border-radius: var(--excel-radius-md);
+  }
+
+  #mobile-menu-panel .mobile-menu-clone > li > a {
+    padding: 13px 16px;
+    font-size: 15px;
+  }
+
+  #footer .footer-top .row {
+    row-gap: 10px;
+  }
+
+  #footer .footer-top .footer-info {
+    margin-bottom: 6px;
+  }
+
+  #footer .footer-top .footer-info img {
+    width: 126px;
+    max-width: 126px;
+  }
+}
+
+@media (hover: none) {
+  .btn-ind:active,
+  .wedding-signature-arrows button:active,
+  .contact-resorts .resort-card:active,
+  .wedding-card:active,
+  #galleryItems .GB-media:active,
+  .back-to-top:active {
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
 

@@ -1,35 +1,41 @@
-const swiper = new Swiper(".swiper", {
-    // Optional parameters
-    direction: "horizontal",
-    loop: true,
-    autoHeight: false,
-    centeredSlides: true,
-    slidesPerView: 1,
-    // Responsive breakpoints
-    breakpoints: {
-        1000: {
-            slidesPerView: 2,
-            spaceBetween: 40,
+(function () {
+    "use strict";
+
+    if (typeof Swiper === "undefined") return;
+    var swiperEl = document.querySelector(".swiper");
+    if (!swiperEl) return;
+
+    new Swiper(".swiper", {
+        direction: "horizontal",
+        loop: true,
+        autoHeight: false,
+        centeredSlides: true,
+        slidesPerView: 1,
+        spaceBetween: 16,
+        speed: 720,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false
         },
-        800: {
-            slidesPerView: 3,
-            spaceBetween: 40,
+        watchSlidesProgress: true,
+        observer: true,
+        observeParents: true,
+        breakpoints: {
+            768: {
+                slidesPerView: 1.55,
+                spaceBetween: 24
+            },
+            1200: {
+                slidesPerView: 2.2,
+                spaceBetween: 34
+            }
+        },
+        pagination: {
+            el: ".swiper-pagination"
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
         }
-    },
-
-    // If we need pagination
-    pagination: {
-        el: ".swiper-pagination"
-    },
-
-    // Navigation arrows
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-    }
-
-    // And if we need scrollbar
-    /*scrollbar: {
-    el: '.swiper-scrollbar',
-  },*/
-});
+    });
+})();

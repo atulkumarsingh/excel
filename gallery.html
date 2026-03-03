@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,7 +27,7 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css'>
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/custom-style.css" rel="stylesheet">
+    <link href="assets/css/custom-style.min.css" rel="stylesheet">
     <link rel="stylesheet" href='https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css'>
 
 </head>
@@ -39,23 +39,29 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
             <!--<h1 class="logo me-auto me-lg-0"><a href="index.html">CIHR</a></h1>-->
             <!-- Uncomment below if you prefer to use an image logo -->
-            <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/excel-logo1.png" alt="" class="img-fluid"></a>
+            <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/excel-logo-nav.webp" alt="" class="img-fluid"></a>
 
-            <nav id="navbar" class="navbar order-last order-lg-0">
+                        <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <!--<li><a class="nav-link scrollto active" href="#hero">Home</a></li>-->
+                    <li><a class="nav-link scrollto" href="index.html">HOME</a></li>
                     <li class="dropdown">
                         <a href="#"><span>RESORTS</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li class="f-s-10"><a href="la-perle.html">La Perle River Resort, Jim Corbett</a></li> 
+                            <li class="f-s-10"><a href="la-perle.html">La Perle River Resort, Jim Corbett</a></li>
                             <li class="f-s-10"><a href="banyan-retreat.html">The Banyan Retreat, Jim Corbett</a></li>
                             <li class="f-s-10"><a href="excel-corbett.html">Excel Hotels & Resorts, Jim Corbett</a></li>
-                            <li class="f-s-10"><a href="excel-nainital.html">Excel Hotels & Resorts, Nainital</a></li>              <li class="f-s-10"><a href="excel-bhimtal.html">Excel Hotels & Resorts, Bhimtal</a></li>
-                            
+                            <li class="f-s-10"><a href="excel-nainital.html">Excel Hotels & Resorts, Nainital</a></li>
+                            <li class="f-s-10"><a href="excel-bhimtal.html">Excel Hotels & Resorts, Bhimtal</a></li>
                         </ul>
                     </li>
                     <li><a class="nav-link scrollto" href="index.html#experiences">EXPERIENCES</a></li>
-                    <li><a class="nav-link scrollto" href="index.html#pre-footer">EVENTS</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#pre-footer"><span>EVENTS</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li class="f-s-10"><a href="index.html#pre-footer">All Events</a></li>
+                            <li class="f-s-10"><a href="wedding.html">Wedding</a></li>
+                        </ul>
+                    </li>
                     <li><a class="nav-link scrollto active" href="gallery.html">GALLERY</a></li>
                     <li><a class="nav-link scrollto" href="contact.html">CONTACT US</a></li>
                 </ul>
@@ -90,11 +96,22 @@
         <section id="about" class="about">
             <div class="container aos-init aos-animate" data-aos="fade-up">
                 <div class="section-header text-center">
-                    <div class="section-title text-center">
+                    <div class="section-title text-center gallery-title-wrap">
                         <p>GALLERY</p>
+                        <div class="gallery-filter-box">
+                            <label for="galleryPropertyFilter" class="visually-hidden">Filter gallery by resort</label>
+                            <select id="galleryPropertyFilter" class="gallery-property-filter" aria-label="Filter gallery by resort">
+                                <option value="all">All Properties</option>
+                                <option value="la-perle">La Perle River Resort, Jim Corbett</option>
+                                <option value="banyan">The Banyan Retreat, Jim Corbett</option>
+                                <option value="excel-corbett">Excel Hotels & Resorts, Jim Corbett</option>
+                                <option value="excel-nainital">Excel Hotels & Resorts, Nainital</option>
+                                <option value="excel-bhimtal">Excel Hotels & Resorts, Bhimtal</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container" id="galleryItems">
                     <div class="row" style="padding-bottom: 24px;">
                         <div class="col col-md-6">
                             <div class="row" style="padding-bottom: 24px;">
@@ -457,41 +474,7 @@
     </main>
 
         <!-- ======= Footer ======= -->
-        <footer id="footer">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-    
-                        <div class="col-md-4">
-                            <div class="footer-info">
-                                <img src="assets/img/excel-logo1.png" alt="" class="img-fluid">
-                            </div>
-                        </div>
-    
-                        <div class="col-md-4">
-                            <div class="quicklinks">
-                                <h6>QUICK LINKS</h6>
-                                <ul>
-                                    <li ><a class="font-Brandon color-dgrey" href="aboutus1.html">About us</a></li>
-                                    <li ><a class="font-Brandon color-dgrey" href="contact.html">Contact us</a></li>
-                                    <li ><a class="font-Brandon color-dgrey" href="gallery.html">Gallery</a></li>
-                                    <li ><a class="font-Brandon color-dgrey" href="petpolicy1.html">Pet Policy</a></li>
-                                </ul>
-                            </div>
-                        </div>
-    
-                        <div class="col-md-4">
-                            <div class="quicklinks">
-                                <h6>CONTACT US</h6>
-                                <p class="m-0"><a class="font-Brandon color-dgrey f-s-16" href="tel:+919211301999"> +91  9211301999</a></p>
-                                <p class="m-0"><a class="font-Brandon color-dgrey f-s-16" href="mailto:resv@excelhotelandresort.com">resv@excelhotelandresort.com</a></p>
-                            </div>
-                        </div>
-    
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <footer id=footer><div class=footer-top><div class=container><div class=row><div class=col-md-4><div class=footer-info><img alt class=img-fluid decoding=async fetchpriority=high src=assets/img/excel-logo.webp></div></div><div class=col-md-4><div class=quicklinks><h6>QUICK LINKS</h6><ul><li><a class="font-Brandon color-dgrey" href=aboutus1.html>About us</a><li><a class="font-Brandon color-dgrey" href=contact.html>Contact us</a><li><a class="font-Brandon color-dgrey" href=gallery.html>Gallery</a><li><a class="font-Brandon color-dgrey" href=petpolicy1.html>Pet Policy</a></ul></div></div><div class=col-md-4><div class=quicklinks><h6>CONTACT US</h6><p class=m-0><a class="font-Brandon color-dgrey f-s-16" href=tel:+919211301999>+91 9211301999</a><p class=m-0><a class="font-Brandon color-dgrey f-s-16" href=Address>The Iconic Corenthum, Office No : 805 B , 8th Floor , Iconic Tower, Plot No A-41, Sector 62, Noida, Uttar Pradesh 201309</a><p class=m-0><a class="font-Brandon color-dgrey f-s-16" href=mailto:resv@excelhotelandresort.com>resv@excelhotelandresort.com</a></div></div></div></div></div></footer>
         <!-- End Footer -->
     <!--<div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>-->
@@ -504,14 +487,99 @@
     <script src="assets/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.min.js"></script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/7.3.1/swiper-bundle.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
-    <script src="assets/js/slider-script.js"></script>
+    <script src="assets/js/slider-script.min.js"></script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js'></script>
-    <script src="assets/js/slick-slider-script.js"></script>
+    <script src="assets/js/slick-slider-script.min.js"></script>
 
+    <script>
+        window.addEventListener('load', function () {
+            var filterSelect = document.getElementById('galleryPropertyFilter');
+            var galleryRoot = document.getElementById('galleryItems');
+            if (!filterSelect || !galleryRoot) return;
+
+            var mediaItems = Array.prototype.slice.call(galleryRoot.querySelectorAll('.GB-media'));
+            if (!mediaItems.length) return;
+
+            var colSelector = '.col, [class^="col-"], [class*=" col-"]';
+            var propertyMapByIndex = [
+                'la-perle', 'la-perle', 'la-perle', 'la-perle', 'la-perle',
+                'banyan', 'banyan', 'banyan', 'banyan', 'banyan',
+                'excel-corbett', 'excel-corbett', 'excel-corbett', 'excel-corbett', 'excel-corbett', 'excel-corbett',
+                'excel-nainital', 'excel-nainital', 'excel-nainital', 'excel-nainital', 'excel-nainital',
+                'excel-bhimtal', 'excel-bhimtal', 'excel-bhimtal', 'excel-bhimtal', 'excel-bhimtal', 'excel-bhimtal'
+            ];
+
+            mediaItems.forEach(function (media, index) {
+                var propertyName = propertyMapByIndex[index] || 'excel-corbett';
+                media.dataset.property = propertyName;
+                var itemCol = media.closest(colSelector);
+                if (!itemCol) return;
+                itemCol.classList.add('gallery-filter-item');
+                itemCol.dataset.property = propertyName;
+            });
+
+            var filterItems = Array.prototype.slice.call(galleryRoot.querySelectorAll('.gallery-filter-item'));
+            var allCols = Array.prototype.slice.call(galleryRoot.querySelectorAll(colSelector));
+            var rows = Array.prototype.slice.call(galleryRoot.querySelectorAll('.row'));
+
+            var refreshContainers = function () {
+                allCols.forEach(function (col) {
+                    if (col.classList.contains('gallery-filter-item')) return;
+                    var childItems = col.querySelectorAll('.gallery-filter-item');
+                    if (!childItems.length) return;
+                    var hasVisibleChild = Array.prototype.some.call(childItems, function (item) {
+                        return item.style.display !== 'none';
+                    });
+                    col.style.display = hasVisibleChild ? '' : 'none';
+                });
+
+                rows.forEach(function (row) {
+                    var directCols = Array.prototype.filter.call(row.children, function (child) {
+                        return child.matches && child.matches(colSelector);
+                    });
+                    if (!directCols.length) return;
+                    var hasVisibleCol = directCols.some(function (col) {
+                        return col.style.display !== 'none';
+                    });
+                    row.style.display = hasVisibleCol ? '' : 'none';
+                });
+            };
+
+            var applyFilter = function (propertyName) {
+                filterItems.forEach(function (item) {
+                    var matches = propertyName === 'all' || item.dataset.property === propertyName;
+                    item.style.display = matches ? '' : 'none';
+                });
+                refreshContainers();
+            };
+
+            filterSelect.addEventListener('change', function () {
+                applyFilter(this.value);
+            });
+
+            applyFilter('all');
+
+            var isMobileViewport = function () {
+                return window.matchMedia('(max-width: 991px)').matches;
+            };
+
+            mediaItems.forEach(function (media) {
+                media.addEventListener('click', function (event) {
+                    if (!isMobileViewport()) return;
+                    if (event.target.closest('a.gallery-lightbox')) return;
+                    var lightboxLink = media.querySelector('a.gallery-lightbox');
+                    if (!lightboxLink) return;
+                    event.preventDefault();
+                    lightboxLink.click();
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+

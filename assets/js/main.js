@@ -7,6 +7,8 @@
 (function() {
   "use strict";
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /**
    * Easy selector helper function
    */
@@ -37,7 +39,7 @@
    * Easy on scroll event listener 
    */
   const onscroll = (el, listener) => {
-    el.addEventListener('scroll', listener)
+    el.addEventListener('scroll', listener, { passive: true })
   }
 
   /**
@@ -100,7 +102,19 @@
   /**
    * Back to top button
    */
-  let backtotop = select('.back-to-top')
+  const ensureBackToTopButton = () => {
+    let button = select('.back-to-top')
+    if (button) return button
+    button = document.createElement('button')
+    button.type = 'button'
+    button.className = 'back-to-top d-flex align-items-center justify-content-center'
+    button.setAttribute('aria-label', 'Back to top')
+    button.innerHTML = '<i class="bi bi-arrow-up-short" aria-hidden="true"></i>'
+    document.body.appendChild(button)
+    return button
+  }
+
+  let backtotop = ensureBackToTopButton()
   if (backtotop) {
     const toggleBacktotop = () => {
       if (window.scrollY > 100) {
@@ -109,6 +123,12 @@
         backtotop.classList.remove('active')
       }
     }
+    backtotop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      })
+    })
     window.addEventListener('load', toggleBacktotop)
     onscroll(document, toggleBacktotop)
   }
@@ -125,6 +145,12 @@
       menuList = null
     }
     return menuList || navbar.querySelector('ul')
+  }
+
+  const navToggleButton = select('.mobile-nav-toggle')
+  if (navToggleButton) {
+    navToggleButton.setAttribute('aria-label', 'Toggle menu')
+    navToggleButton.setAttribute('aria-expanded', 'false')
   }
 
   const getMobileMenuPanel = () => {
@@ -198,20 +224,38 @@
   }
 
   const openMobileMenu = (navbar, menuList) => {
+    const panel = buildMobileMenuPanel(menuList)
     navbar.classList.add('navbar-mobile')
     document.body.classList.add('mobile-nav-open')
-    const panel = buildMobileMenuPanel(menuList)
+    const navbarToggle = select('.mobile-nav-toggle')
+    if (navbarToggle) {
+      navbarToggle.classList.remove('bi-list')
+      navbarToggle.classList.add('bi-x')
+      navbarToggle.setAttribute('aria-expanded', 'true')
+    }
+    panel.classList.remove('closing')
     panel.classList.add('open')
   }
 
   const closeMobileMenu = (navbar, menuList) => {
     navbar.classList.remove('navbar-mobile')
     document.body.classList.remove('mobile-nav-open')
+    const navbarToggle = select('.mobile-nav-toggle')
+    if (navbarToggle) {
+      navbarToggle.classList.add('bi-list')
+      navbarToggle.classList.remove('bi-x')
+      navbarToggle.setAttribute('aria-expanded', 'false')
+    }
 
     const panel = document.getElementById('mobile-menu-panel')
     if (panel) {
+      panel.classList.add('closing')
       panel.classList.remove('open')
-      panel.innerHTML = ''
+      window.setTimeout(() => {
+        if (panel.classList.contains('open')) return
+        panel.classList.remove('closing')
+        panel.innerHTML = ''
+      }, 280)
     }
 
     if (menuList) {
@@ -227,12 +271,8 @@
     const menuList = getTopLevelMenuList(navbar)
     if (navbar.classList.contains('navbar-mobile')) {
       closeMobileMenu(navbar, menuList)
-      this.classList.add('bi-list')
-      this.classList.remove('bi-x')
     } else {
       openMobileMenu(navbar, menuList)
-      this.classList.remove('bi-list')
-      this.classList.add('bi-x')
     }
   })
 
@@ -257,11 +297,6 @@
       if (navbar.classList.contains('navbar-mobile')) {
         const menuList = getTopLevelMenuList(navbar)
         closeMobileMenu(navbar, menuList)
-        let navbarToggle = select('.mobile-nav-toggle')
-        if (navbarToggle) {
-          navbarToggle.classList.toggle('bi-list')
-          navbarToggle.classList.toggle('bi-x')
-        }
       }
       scrollto(this.hash)
     }
@@ -277,9 +312,125 @@
       if (navbarToggle) {
         navbarToggle.classList.add('bi-list')
         navbarToggle.classList.remove('bi-x')
+        navbarToggle.setAttribute('aria-expanded', 'false')
       }
     }
   })
+
+  const initMediaPerformanceTweaks = () => {
+    const images = select('img', true)
+    const eagerLimit = window.innerWidth < 768 ? 2 : 3
+    let eagerCount = 0
+    if (images.length) {
+      images.forEach((img) => {
+        if (!img.hasAttribute('decoding')) {
+          img.setAttribute('decoding', 'async')
+        }
+        const inViewport = img.getBoundingClientRect().top < window.innerHeight * 1.2
+        if (!img.hasAttribute('loading')) {
+          if (inViewport && eagerCount < eagerLimit) {
+            img.setAttribute('loading', 'eager')
+            eagerCount += 1
+          } else {
+            img.setAttribute('loading', 'lazy')
+          }
+        }
+        if (img.getAttribute('loading') === 'lazy' && !img.hasAttribute('fetchpriority')) {
+          img.setAttribute('fetchpriority', 'low')
+        }
+      })
+    }
+
+    const videoSources = select('video source[data-src]', true)
+    if (videoSources.length) {
+      const loadVideo = (sourceEl) => {
+        const sourceUrl = sourceEl.getAttribute('data-src')
+        if (!sourceUrl || sourceEl.getAttribute('src')) return
+        sourceEl.setAttribute('src', sourceUrl)
+        const video = sourceEl.closest('video')
+        if (video) {
+          video.load()
+        }
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        videoSources.forEach(loadVideo)
+      } else {
+        const videoObserver = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return
+            const sourceEl = entry.target.querySelector('source[data-src]')
+            if (sourceEl) {
+              loadVideo(sourceEl)
+            }
+            obs.unobserve(entry.target)
+          })
+        }, {
+          rootMargin: '120px 0px',
+          threshold: 0.01
+        })
+
+        videoSources.forEach((sourceEl) => {
+          const video = sourceEl.closest('video')
+          if (video) {
+            videoObserver.observe(video)
+          }
+        })
+      }
+    }
+
+    const embeds = select('iframe', true)
+    embeds.forEach((frame) => {
+      if (!frame.hasAttribute('loading')) {
+        frame.setAttribute('loading', 'lazy')
+      }
+    })
+  }
+
+  const initRevealAnimations = () => {
+    const targets = select('main section, #footer .footer-top, .wedding-card, .contact-resorts .resort-card, #galleryItems .GB-media', true)
+    if (!targets.length) return
+
+    targets.forEach((el, index) => {
+      if (el.classList.contains('reveal-on-scroll')) return
+      el.classList.add('reveal-on-scroll')
+      el.style.setProperty('--reveal-delay', `${Math.min((index % 6) * 70, 320)}ms`)
+    })
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      targets.forEach(el => el.classList.add('reveal-visible'))
+      return
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        entry.target.classList.add('reveal-visible')
+        obs.unobserve(entry.target)
+      })
+    }, {
+      rootMargin: '0px 0px -12% 0px',
+      threshold: 0.12
+    })
+
+    targets.forEach(el => observer.observe(el))
+  }
+
+  const initMobileGalleryTap = () => {
+    if (window.innerWidth > 991) return
+    const cards = select('#galleryItems .GB-media', true)
+    cards.forEach((card) => {
+      if (card.dataset.tapReady === 'true') return
+      card.dataset.tapReady = 'true'
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('a, button, select, input, textarea, label')) return
+        const trigger = card.querySelector('a.gallery-lightbox')
+        if (trigger) {
+          trigger.click()
+        }
+      })
+    })
+  }
 
   /**
    * Scroll with ofset on page load with hash links in the url
@@ -307,7 +458,7 @@
    */
   window.addEventListener('load', () => {
     let menuContainer = select('.menu-container');
-    if (menuContainer) {
+    if (menuContainer && typeof Isotope !== 'undefined') {
       let menuIsotope = new Isotope(menuContainer, {
         itemSelector: '.menu-item',
         layoutMode: 'fitRows'
@@ -336,74 +487,87 @@
   /**
    * Initiate glightbox 
    */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
+  if (typeof GLightbox !== 'undefined' && select('.glightbox')) {
+    GLightbox({
+      selector: '.glightbox'
+    });
+  }
 
   /**
    * Events slider
    */
-  new Swiper('.events-slider', {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    }
-  });
+  if (typeof Swiper !== 'undefined' && select('.events-slider')) {
+    new Swiper('.events-slider', {
+      speed: 600,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      },
+      slidesPerView: 'auto',
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      }
+    });
+  }
 
   /**
    * Testimonials slider
    */
-  new Swiper('.testimonials-slider', {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20
+  if (typeof Swiper !== 'undefined' && select('.testimonials-slider')) {
+    new Swiper('.testimonials-slider', {
+      speed: 600,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
       },
+      slidesPerView: 'auto',
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
 
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 20
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        }
       }
-    }
-  });
+    });
+  }
 
   /**
    * Initiate gallery lightbox 
    */
-  const galleryLightbox = GLightbox({
-    selector: '.gallery-lightbox'
-  });
+  if (typeof GLightbox !== 'undefined' && select('.gallery-lightbox')) {
+    GLightbox({
+      selector: '.gallery-lightbox'
+    });
+  }
 
   /**
    * Animation on scroll
    */
   window.addEventListener('load', () => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false
-    })
+    initMediaPerformanceTweaks()
+    initRevealAnimations()
+    initMobileGalleryTap()
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      })
+    }
   });
 
 })()
