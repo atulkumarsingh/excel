@@ -9,6 +9,28 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const setAppViewportUnit = () => {
+    const vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--app-vh', `${vh}px`)
+  }
+
+  const applyInlineVideoCompatibility = () => {
+    const videos = document.querySelectorAll('video')
+    videos.forEach((video) => {
+      video.setAttribute('playsinline', '')
+      video.setAttribute('webkit-playsinline', '')
+      if (video.muted) {
+        video.setAttribute('muted', '')
+        video.autoplay = true
+      }
+    })
+  }
+
+  const applyMobilePlatformFixes = () => {
+    setAppViewportUnit()
+    applyInlineVideoCompatibility()
+  }
+
   /**
    * Easy selector helper function
    */
@@ -315,6 +337,15 @@
         navbarToggle.setAttribute('aria-expanded', 'false')
       }
     }
+    setAppViewportUnit()
+    initMobileGalleryTap()
+  })
+
+  window.addEventListener('orientationchange', () => {
+    window.setTimeout(() => {
+      setAppViewportUnit()
+      initMobileGalleryTap()
+    }, 220)
   })
 
   const initMediaPerformanceTweaks = () => {
@@ -557,6 +588,7 @@
    * Animation on scroll
    */
   window.addEventListener('load', () => {
+    applyMobilePlatformFixes()
     initMediaPerformanceTweaks()
     initRevealAnimations()
     initMobileGalleryTap()
