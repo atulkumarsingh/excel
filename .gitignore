@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+# Local/dev folders
+.vscode/
+test-results/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node cache/logs
+node_modules/
+npm-debug.log*
+yarn-error.log*

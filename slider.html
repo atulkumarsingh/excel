@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .unforgettable-section .singleBar-slider,
+        .unforgettable-section .unforgettable-slider {
+            position: relative;
+        }
+
+            .unforgettable-section .singleBar-slider img,
+            .unforgettable-section .unforgettable-slider img {
+                width: 100%;
+                -o-object-fit: cover;
+                object-fit: cover;
+            }
+
+            .unforgettable-section .singleBar-slider figure,
+            .unforgettable-section .unforgettable-slider figure {
+                background-color: #0F1E4D;
+                position: relative;
+                height: 100%;
+            }
+
+                .unforgettable-section .singleBar-slider figure img,
+                .unforgettable-section .unforgettable-slider figure img {
+                    opacity: .5;
+                    height: 100%;
+                    width: 100%;
+                    -o-object-fit: cover;
+                    object-fit: cover;
+                    -webkit-transition: all .2s;
+                    transition: all .2s;
+                }
+
+                .unforgettable-section .singleBar-slider figure .btn,
+                .unforgettable-section .unforgettable-slider figure .btn {
+                    position: absolute;
+                    left: 50%;
+                    -webkit-transform: translateX(-50%);
+                    -ms-transform: translate(-50%);
+                    transform: translate(-50%);
+                    bottom: 70px;
+                    white-space: nowrap;
+                    display: none;
+                    opacity: 0;
+                    -webkit-transition: all .5s;
+                    transition: all .5s;
+                }
+
+            .unforgettable-section .singleBar-slider .current-child figure .btn,
+            .unforgettable-section .singleBar-slider .current-child figure img,
+            .unforgettable-section .singleBar-slider .prev-child figure .btn,
+            .unforgettable-section .singleBar-slider .prev-child figure img,
+            .unforgettable-section .unforgettable-slider .current-child figure .btn,
+            .unforgettable-section .unforgettable-slider .current-child figure img,
+            .unforgettable-section .unforgettable-slider .prev-child figure .btn,
+            .unforgettable-section .unforgettable-slider .prev-child figure img {
+                display: inline-block;
+                opacity: 1;
+            }
+
+        .cover-banner .slick-arrow {
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.55);
+        }
+
+        .unforgettable-section .singleBar-slider .slick-arrow,
+        .unforgettable-section .unforgettable-slider .slick-arrow {
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            z-index: 99;
+            font-size: 0;
+            background-color: transparent;
+            border: none;
+            outline: 0;
+            width: 55px;
+            height: 30px;
+            background-repeat: no-repeat;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            cursor: pointer;
+        }
+
+            .unforgettable-section .singleBar-slider .slick-arrow.slick-prev,
+            .unforgettable-section .unforgettable-slider .slick-arrow.slick-prev {
+                left: 75px;
+                background-image: url(/app/images/left-arrow.svg);
+                background-position: center right;
+            }
+
+                .unforgettable-section .singleBar-slider .slick-arrow.slick-prev:hover,
+                .unforgettable-section .unforgettable-slider .slick-arrow.slick-prev:hover {
+                    background-position: center left;
+                }
+
+            .unforgettable-section .singleBar-slider .slick-arrow.slick-next,
+            .unforgettable-section .unforgettable-slider .slick-arrow.slick-next {
+                right: 75px;
+                background-image: url(/app/images/right-arrow.svg);
+                background-position: center left;
+            }
+
+        @media (max-width:992px) {
+            .unforgettable-section .singleBar-slider .slick-arrow.slick-prev,
+            .unforgettable-section .unforgettable-slider .slick-arrow.slick-prev {
+                left: 15px;
+            }
+
+            .unforgettable-section .singleBar-slider .slick-arrow.slick-next,
+            .unforgettable-section .unforgettable-slider .slick-arrow.slick-next {
+                right: 15px;
+            }
+        }
+
+        .unforgettable-section .singleBar-slider .slick-arrow.slick-next:hover,
+        .unforgettable-section .unforgettable-slider .slick-arrow.slick-next:hover {
+            background-position: center right;
+        }
+
+        .unforgettable-section .singleBar-slider .slick-dots,
+        .unforgettable-section .unforgettable-slider .slick-dots {
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translate(-50%);
+            transform: translate(-50%);
+            position: absolute;
+            width: 600px;
+            bottom: 40px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+            .experience-section .line,
+            .unforgettable-section .singleBar-slider .slick-dots li button,
+            .unforgettable-section .unforgettable-slider .slick-dots li button {
+                display: none;
+            }
+
+            .unforgettable-section .singleBar-slider .slick-dots .bar,
+            .unforgettable-section .unforgettable-slider .slick-dots .bar {
+                position: absolute;
+                height: 5px;
+                background-color: #fff;
+            }
+
+        @media (max-width:768px) {
+            .unforgettable-section .text-box {
+                padding: 80px 15px 50px;
+            }
+
+                .unforgettable-section .text-box h2 {
+                    margin: 10px 0;
+                }
+
+            .unforgettable-section .singleBar-slider figure .btn,
+            .unforgettable-section .unforgettable-slider figure .btn {
+                bottom: 40px;
+            }
+
+            .unforgettable-section .singleBar-slider .slick-dots,
+            .unforgettable-section .unforgettable-slider .slick-dots {
+                width: -webkit-calc(100% - 60px);
+                width: calc(100% - 60px);
+                bottom: -30px;
+            }
+        }
+
+        .unforgettable-section .singleBar-slider .slick-dots li,
+        .unforgettable-section .unforgettable-slider .slick-dots li {
+            list-style: none;
+            height: 2px;
+            vertical-align: middle;
+            background-color: #fff;
+        }
+
+        .discovery-section {
+            padding: 100px 0;
+        }
+
+            .discovery-section h2 {
+                width: 40%;
+            }
+
+            .discovery-section p {
+                width: 60%;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <div data-aos="fade-up" data-aos-duration="1000" class="unforgettable-slider slick-initialized slick-slider slick-dotted aos-init aos-animate">
+            <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="" title="Prev Slide">Previous</button>
+            <!--[tanuki_home_offer_timing]-->
+            <div class="slick-list draggable" style="padding: 0px 180px;">
+                <div class="slick-track" style="opacity: 1; width: 6948px; transform: translate3d(-3088px, 0px, 0px);">
+                    <div class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style="width: 772px;" tabindex="-1">
+                        <figure>
+                            <img src="/wp-content/uploads/2022/03/ESPACIO-Suite-Deal-home-offer-551x743-1.jpg" alt="">
+                            <a href="exclusive-offers/#suites" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="-1">Suite Deal</a>
+                        </figure>
+                    </div><div class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style="width: 772px;" tabindex="-1">
+                        <figure>
+                            <img src="/app/images/homepage-offer-renew.jpg" alt="">
+                            <a href="exclusive-offers/#renew" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="-1">Renew &amp; Indulge</a>
+                        </figure>
+                    </div><div class="slick-slide slick-cloned slick-center" data-slick-index="-1" aria-hidden="true" style="width: 772px;" tabindex="-1">
+                        <figure>
+                            <img src="/wp-content/uploads/2021/04/Espacio-Indulgence-Long-Stay-551x743-1.jpg" alt="">
+                            <a href="exclusive-offers/#long" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="-1">Indulgence Long Stay</a>
+                        </figure>
+                    </div><div class="slick-slide" data-slick-index="0" aria-hidden="true" style="width: 772px;" tabindex="-1" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00">
+                        <figure>
+                            <img src="/wp-content/uploads/2022/03/ESPACIO-Suite-Deal-home-offer-551x743-1.jpg" alt="">
+                            <a href="exclusive-offers/#suites" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="-1">Suite Deal</a>
+                        </figure>
+                    </div><div class="slick-slide prev-child" data-slick-index="1" aria-hidden="true" style="width: 772px;" tabindex="-1" role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01">
+                        <figure>
+                            <img src="/app/images/homepage-offer-renew.jpg" alt="">
+                            <a href="exclusive-offers/#renew" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="-1">Renew &amp; Indulge</a>
+                        </figure>
+                    </div><div class="slick-slide slick-current slick-active slick-center current-child" data-slick-index="2" aria-hidden="false" style="width: 772px;" tabindex="0" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02">
+                        <figure>
+                            <img src="/wp-content/uploads/2021/04/Espacio-Indulgence-Long-Stay-551x743-1.jpg" alt="">
+                            <a href="exclusive-offers/#long" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="0">Indulgence Long Stay</a>
+                        </figure>
+                    </div><div class="slick-slide slick-cloned slick-active" data-slick-index="3" aria-hidden="false" style="width: 772px;" tabindex="-1">
+                        <figure>
+                            <img src="/wp-content/uploads/2022/03/ESPACIO-Suite-Deal-home-offer-551x743-1.jpg" alt="">
+                            <a href="exclusive-offers/#suites" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="0">Suite Deal</a>
+                        </figure>
+                    </div><div class="slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" style="width: 772px;" tabindex="-1">
+                        <figure>
+                            <img src="/app/images/homepage-offer-renew.jpg" alt="">
+                            <a href="exclusive-offers/#renew" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="-1">Renew &amp; Indulge</a>
+                        </figure>
+                    </div><div class="slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style="width: 772px;" tabindex="-1">
+                        <figure>
+                            <img src="/wp-content/uploads/2021/04/Espacio-Indulgence-Long-Stay-551x743-1.jpg" alt="">
+                            <a href="exclusive-offers/#long" data-aos="fade-in" data-aos-duration="1000" class="btn aos-init aos-animate" tabindex="-1">Indulgence Long Stay</a>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- if only 2 offers, duplicate them for slider to work
+            <div>
+                <figure>
+                        <img src="/app/images/homepage-offer-renew.jpg" alt="">
+                        <a href="exclusive-offers/#renew" data-aos="fade-in" data-aos-duration="1000" class="btn">Renew & Indulge</a>
+
+                </figure>
+            </div>
+
+            <div>
+                <figure>
+                        <img src="/wp-content/uploads/2021/04/Espacio-Indulgence-Long-Stay-551x743-1.jpg" alt="">
+                        <a href="exclusive-offers/#long" data-aos="fade-in" data-aos-duration="1000"
+                        class="btn">Indulgence Long Stay</a>
+
+                </figure>
+            </div>-->
+
+            <button class="slick-next slick-arrow" aria-label="Next" type="button" style="" title="Next Slide">Next</button><ul class="slick-dots" style="" role="tablist"><li class="" role="presentation" style="width: 200px;"><button type="button" role="tab" id="slick-slide-control00" aria-controls="slick-slide00" aria-label="1 of 2" tabindex="-1">1</button></li><li role="presentation" style="width: 200px;" class=""><button type="button" role="tab" id="slick-slide-control01" aria-controls="slick-slide01" aria-label="2 of 2" tabindex="-1">2</button></li><li role="presentation" style="width: 200px;" class="slick-active"><button type="button" role="tab" id="slick-slide-control02" aria-controls="slick-slide02" aria-label="3 of 2" tabindex="0" aria-selected="true">3</button></li></ul>
+        </div>
+    </div>
+</body>
+</html>
