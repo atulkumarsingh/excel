@@ -1,0 +1,4 @@
+Remaining gl-tile-stack occurrences: 1
+gl-tile-stack after removal: 1
+Original size: 44051, New size: 43587
+Done!

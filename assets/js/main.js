@@ -4,7 +4,7 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-(function() {
+(function () {
   "use strict";
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -286,7 +286,7 @@
     }
   }
 
-  on('click', '.mobile-nav-toggle', function(e) {
+  on('click', '.mobile-nav-toggle', function (e) {
     e.preventDefault()
     const navbar = select('#navbar')
     if (!navbar) return
@@ -301,7 +301,7 @@
   /**
    * Mobile nav dropdowns activate
    */
-  on('click', '.navbar .dropdown > a', function(e) {
+  on('click', '.navbar .dropdown > a', function (e) {
     if (select('#navbar').classList.contains('navbar-mobile')) {
       e.preventDefault()
       this.nextElementSibling.classList.toggle('dropdown-active')
@@ -311,7 +311,7 @@
   /**
    * Scrool with ofset on links with a class name .scrollto
    */
-  on('click', '.scrollto', function(e) {
+  on('click', '.scrollto', function (e) {
     if (this.hash && select(this.hash)) {
       e.preventDefault()
 
@@ -423,6 +423,12 @@
     if (!targets.length) return
 
     targets.forEach((el, index) => {
+      // Skip gallery section — it's too tall for threshold-based reveal and
+      // has its own visibility CSS. Adding reveal-on-scroll would make it flash invisible.
+      if (el.classList.contains('gl-section') ||
+        el.closest('.gl-section') ||
+        el.closest('.gl-filter-section')) return
+
       if (el.classList.contains('reveal-on-scroll')) return
       el.classList.add('reveal-on-scroll')
       el.style.setProperty('--reveal-delay', `${Math.min((index % 6) * 70, 320)}ms`)
@@ -446,6 +452,7 @@
 
     targets.forEach(el => observer.observe(el))
   }
+
 
   const initMobileGalleryTap = () => {
     if (window.innerWidth > 991) return
@@ -497,9 +504,9 @@
 
       let menuFilters = select('#menu-flters li', true);
 
-      on('click', '#menu-flters li', function(e) {
+      on('click', '#menu-flters li', function (e) {
         e.preventDefault();
-        menuFilters.forEach(function(el) {
+        menuFilters.forEach(function (el) {
           el.classList.remove('filter-active');
         });
         this.classList.add('filter-active');
@@ -507,7 +514,7 @@
         menuIsotope.arrange({
           filter: this.getAttribute('data-filter')
         });
-        menuIsotope.on('arrangeComplete', function() {
+        menuIsotope.on('arrangeComplete', function () {
           AOS.refresh()
         });
       }, true);

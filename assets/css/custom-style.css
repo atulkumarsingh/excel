@@ -13,7 +13,7 @@ html {
 body {
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
-  font-size: 0 !important;
+
 }
 
 :root {
@@ -170,7 +170,7 @@ a {
 /* Color templates*/
 .color-transparent {
   color: transparent !important;
-  font-size: 0 !important;
+
 }
 
 .color-ivory {
@@ -3306,7 +3306,7 @@ p {
   z-index: 999;
   background: transparent;
   color: transparent;
-  font-size: 0 !important;
+
   border: none;
   background-image: url(../img/left-arrow.svg);
   background-repeat: no-repeat;
@@ -3319,7 +3319,7 @@ p {
   z-index: 999;
   background: transparent;
   color: transparent;
-  font-size: 0 !important;
+
   border: none;
   background-image: url(../img/right-arrow.svg);
   background-repeat: no-repeat;
@@ -3647,7 +3647,7 @@ p {
 
 input[type='date']:required:invalid::-webkit-datetime-edit {
   color: transparent;
-  font-size: 0 !important;
+
 }
 
 input[type='date']:focus::-webkit-datetime-edit {
@@ -3938,7 +3938,7 @@ input[type='date']:focus::-webkit-datetime-edit {
     box-shadow: 0 5px 14px rgba(0, 0, 0, 0.34);
     z-index: 250;
     color: transparent;
-    font-size: 0 !important;
+
     pointer-events: auto;
   }
 
@@ -4602,7 +4602,7 @@ section {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.36) !important;
     background-image: none !important;
     color: transparent !important;
-    font-size: 0 !important;
+
     z-index: 260 !important;
     display: flex !important;
     align-items: center !important;
@@ -4670,7 +4670,7 @@ section {
   .mobile-arrow-ready::before,
   .mobile-arrow-ready::after {
     content: '' !important;
-    font-size: 0 !important;
+
     opacity: 0 !important;
   }
 
@@ -4713,5 +4713,70 @@ section {
 
   #footer .footer-top .quicklinks p {
     font-size: 16px;
+  }
+}
+
+/* Force form labels to be visible */
+.form-control-label {
+  font-size: 16px !important;
+  color: #333 !important;
+  display: block !important;
+  margin-bottom: 5px;
+}
+
+/*--------------------------------------------------------------
+# PHP Email Form
+--------------------------------------------------------------*/
+.php-email-form .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+.php-email-form .loading:before {
+  content: '';
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #aa7c4a;
+  border-top-color: transparent;
+  animation: animate-loading 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.php-email-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.php-email-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.php-email-form .loading.d-block,
+.php-email-form .error-message.d-block,
+.php-email-form .sent-message.d-block {
+  display: block !important;
+}
+
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

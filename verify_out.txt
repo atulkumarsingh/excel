@@ -1,0 +1,35 @@
+=== FOOTER ADDRESSES ===
+  la-perle.html: LA PERLE RIVER RESORT | addr found: True
+  banyan-retreat.html: THE BANYAN RETREAT | addr found: True
+  excel-corbett.html: EXCEL HOTELS &amp; RESORTS, JIM CORBETT | addr found: True
+  excel-nainital.html: EXCEL HOTELS &amp; RESORTS, NAINITAL | addr found: True
+  excel-bhimtal.html: EXCEL HOTELS &amp; RESORTS, BHIMTAL | addr found: True
+  mangobloom-resort.html: MANGOBLOOM RIVER RESORT | addr found: True
+
+=== NAV DROPDOWN (la-perle.html) ===
+  [OK] index.html
+  [OK] index.html
+  [OK] la-perle.html
+  [OK] banyan-retreat.html
+  [OK] excel-corbett.html
+  [OK] excel-nainital.html
+  [OK] excel-bhimtal.html
+  [OK] mangobloom-resort.html
+  [OK] wedding.html
+
+=== ALL HTML FILES ===
+  banyan-retreat.html (22230 bytes)
+  contact.html (10830 bytes)
+  excel-bhimtal.html (20699 bytes)
+  excel-corbett.html (21100 bytes)
+  excel-nainital.html (19998 bytes)
+  form.html (13222 bytes)
+  gallery.html (40057 bytes)
+  home.html (1965 bytes)
+  index.html (21472 bytes)
+  jim-corbett.html (14405 bytes)
+  la-perle.html (22233 bytes)
+  mangobloom-resort.html (22235 bytes)
+  slider.html (14386 bytes)
+  vrindavan.html (15159 bytes)
+  wedding.html (34490 bytes)

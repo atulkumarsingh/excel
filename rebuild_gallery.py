@@ -1,103 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+"""
+Rebuild gallery.html main content:
+- Keep header + hero (lines before <main>) unchanged
+- Replace <main>...</main> + scripts with new Marriott-style layout
+"""
+HERO_END_MARKER = '<main id="main">'
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title></title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">-->
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css'>
-
-    <!-- Template Main CSS File -->
-    <link href="assets/css/custom-style.min.css" rel="stylesheet">
-    <link href="assets/css/gallery.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top d-flex align-items-center">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
-            <!--<h1 class="logo me-auto me-lg-0"><a href="index.html">CIHR</a></h1>-->
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/excel-logo-nav.webp" alt=""
-                    class="img-fluid"></a>
-
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto" href="index.html">HOME</a></li>
-                    <li class="dropdown">
-                        <a href="#"><span>RESORTS</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href=la-perle.html>La Perle River Resort, Jim Corbett</a>
-                            <li><a href=banyan-retreat.html>The Banyan Retreat, Jim Corbett</a>
-                            <li><a href=excel-corbett.html>Excel Hotels &amp; Resorts, Jim Corbett</a>
-                            <li><a href=excel-nainital.html>Excel Hotels &amp; Resorts, Nainital</a>
-                            <li><a href=excel-bhimtal.html>Excel Hotels &amp; Resorts, Bhimtal</a>
-                            <li><a href=mangobloom-resort.html>Mangobloom River Resort, Jim Corbett</a>
-                        </ul>
-                    </li>
-                    <li><a class="nav-link scrollto" href="index.html#experiences">EXPERIENCES</a></li>
-                    <li class="dropdown">
-                        <a href="index.html#pre-footer"><span>EVENTS</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li class="f-s-10"><a href="index.html#pre-footer">All Events</a></li>
-                            <li class="f-s-10"><a href="wedding.html">Wedding</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="nav-link scrollto active" href="gallery.html">GALLERY</a></li>
-                    <li><a class="nav-link scrollto" href="contact.html">CONTACT US</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-
-        </div>
-    </header><!-- End Header -->
-
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="hero5 d-flex align-items-center">
-        <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
-            <div class="row">
-
-            </div>
-        </div>
-    </section>
-    <!-- End Hero -->
-
-    <section class="p-0">
-        <div>
-            <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
-            <div class="overlay"></div>
-
-            <!-- The HTML5 video element that will create the background video on the header -->
-
-        </div>
-    </section>
-
-        <main id="main">
+NEW_MAIN = '''    <main id="main">
 
         <!-- ======= Property Filter Bar ======= -->
         <div class="gl-filter-section">
@@ -151,9 +59,10 @@
                         <img src="assets/img/RiversideDeck.png" alt="Riverside Deck" loading="lazy">
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Riverside Deck</h6><span>Experiences</span></div></div>
                     </div>
-                    <div class="gl-tile" data-prop="la-perle" data-cat="rooms" data-title="Leopards Lair Suite" data-caption="La Perle River Resort – Leopards Lair">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="la-perle" data-cat="rooms" data-title="Leopards Lair Suite" data-caption="La Perle River Resort – Leopards Lair">
                             <img src="assets/img/LeopardsLair.jpg" alt="Leopards Lair" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Leopards Lair Suite</h6><span>Rooms &amp; Suites</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Leopards Lair Suite</h6><span>Rooms &amp; Suites</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="la-perle" data-cat="rooms" data-title="Elephants Park Premium" data-caption="La Perle River Resort – Elephants Park">
                             <img src="assets/img/ElephantsPark.jpg" alt="Elephants Park" loading="lazy">
@@ -174,9 +83,10 @@
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Dine Under The Stars</h6><span>Dining</span></div></div>
                     </div>
                     <!-- Row D: stacked + featured -->
-                    <div class="gl-tile" data-prop="la-perle" data-cat="events" data-title="Special Moments" data-caption="La Perle River Resort – Events">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="la-perle" data-cat="events" data-title="Special Moments" data-caption="La Perle River Resort – Events">
                             <img src="assets/img/LaPerle1.png" alt="Special Moments" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Special Moments</h6><span>Events</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Special Moments</h6><span>Events</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="la-perle" data-cat="events" data-title="La Perle Celebrations" data-caption="La Perle River Resort – Celebrations">
                             <img src="assets/img/LaPerle2.png" alt="La Perle Celebrations" loading="lazy">
@@ -220,9 +130,10 @@
                         <img src="assets/img/BanyanLawns.jpg" alt="Banyan Lawns" loading="lazy">
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Banyan Lawns</h6><span>Events</span></div></div>
                     </div>
-                    <div class="gl-tile" data-prop="banyan" data-cat="rooms" data-title="Banyan Rooms" data-caption="The Banyan Retreat – Rooms">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="banyan" data-cat="rooms" data-title="Banyan Rooms" data-caption="The Banyan Retreat – Rooms">
                             <img src="assets/img/BanyanRooms1.jpg" alt="Banyan Rooms" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Banyan Rooms</h6><span>Rooms &amp; Suites</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Banyan Rooms</h6><span>Rooms &amp; Suites</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="banyan" data-cat="rooms" data-title="Deluxe Rooms" data-caption="The Banyan Retreat – Deluxe Rooms">
                             <img src="assets/img/BanyanRooms2.jpg" alt="Banyan Deluxe" loading="lazy">
@@ -243,9 +154,10 @@
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Kids Play Area</h6><span>Experiences</span></div></div>
                     </div>
                     <!-- Row D: stack + featured -->
-                    <div class="gl-tile" data-prop="banyan" data-cat="experiences" data-title="Bonfire Setting" data-caption="The Banyan Retreat – Bonfire">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="banyan" data-cat="experiences" data-title="Bonfire Setting" data-caption="The Banyan Retreat – Bonfire">
                             <img src="assets/img/Bonfire.jpg" alt="Bonfire" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Bonfire Setting</h6><span>Experiences</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Bonfire Setting</h6><span>Experiences</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="banyan" data-cat="dining" data-title="Culinary Warmth" data-caption="The Banyan Retreat – Restaurant">
                             <img src="assets/img/slickslider/letsdine2.jpg" alt="Dining" loading="lazy">
@@ -283,9 +195,10 @@
                         <img src="assets/img/Kotabagh-Gallery3.png" alt="Kotabagh Gallery" loading="lazy">
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Excel – Jim Corbett</h6><span>Property</span></div></div>
                     </div>
-                    <div class="gl-tile" data-prop="excel-corbett" data-cat="rooms" data-title="Kotabagh Rooms" data-caption="Excel Hotels – Rooms">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="excel-corbett" data-cat="rooms" data-title="Kotabagh Rooms" data-caption="Excel Hotels – Rooms">
                             <img src="assets/img/Kotabagh Rooms1.jpg" alt="Kotabagh Rooms" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Kotabagh Rooms</h6><span>Rooms &amp; Suites</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Kotabagh Rooms</h6><span>Rooms &amp; Suites</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="excel-corbett" data-cat="rooms" data-title="Kotabagh Deluxe" data-caption="Excel Hotels – Deluxe Rooms">
                             <img src="assets/img/Kotabagh Rooms2.jpg" alt="Kotabagh Deluxe" loading="lazy">
@@ -331,9 +244,10 @@
                         <img src="assets/img/egallery4.jpg" alt="Nainital Experiences" loading="lazy">
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Nainital Experiences</h6><span>Experiences</span></div></div>
                     </div>
-                    <div class="gl-tile" data-prop="excel-nainital" data-cat="property" data-title="Nainital Scenic" data-caption="Excel Hotels Nainital – Scenic Views">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="excel-nainital" data-cat="property" data-title="Nainital Scenic" data-caption="Excel Hotels Nainital – Scenic Views">
                             <img src="assets/img/egallery5.jpg" alt="Nainital Scenic" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Nainital Scenic Views</h6><span>Property</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Nainital Scenic Views</h6><span>Property</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="excel-nainital" data-cat="property" data-title="Nainital Gallery" data-caption="Excel Hotels Nainital – Gallery">
                             <img src="assets/img/egallery10.jpg" alt="Nainital Gallery" loading="lazy">
@@ -367,9 +281,10 @@
                         <img src="assets/img/Bhimtal-Pool.png" alt="Bhimtal Pool" loading="lazy">
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Swimming Pool</h6><span>Experiences</span></div></div>
                     </div>
-                    <div class="gl-tile" data-prop="excel-bhimtal" data-cat="rooms" data-title="Bhimtal Rooms" data-caption="Excel Hotels Bhimtal – Rooms">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="excel-bhimtal" data-cat="rooms" data-title="Bhimtal Rooms" data-caption="Excel Hotels Bhimtal – Rooms">
                             <img src="assets/img/Bhimtal-rooms1.jpg" alt="Bhimtal Rooms" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Bhimtal Rooms</h6><span>Rooms &amp; Suites</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Bhimtal Rooms</h6><span>Rooms &amp; Suites</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="excel-bhimtal" data-cat="rooms" data-title="Premium Rooms" data-caption="Excel Hotels Bhimtal – Premium Rooms">
                             <img src="assets/img/Bhimtal-rooms2.jpg" alt="Bhimtal Premium" loading="lazy">
@@ -415,9 +330,10 @@
                         <img src="assets/img/egallery9.jpg" alt="Mangobloom Experiences" loading="lazy">
                         <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Mangobloom Experiences</h6><span>Experiences</span></div></div>
                     </div>
-                    <div class="gl-tile" data-prop="mangobloom" data-cat="dining" data-title="Mangobloom Dining" data-caption="Mangobloom River Resort – Dining">
+                    <div class="gl-tile-stack">
+                        <div class="gl-tile" data-prop="mangobloom" data-cat="dining" data-title="Mangobloom Dining" data-caption="Mangobloom River Resort – Dining">
                             <img src="assets/img/egallery10.jpg" alt="Mangobloom Dining" loading="lazy">
-                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Mangobloom Dining</h6><span>Dining</span></div>
+                            <div class="gl-tile-overlay"><div class="gl-tile-label"><h6>Mangobloom Dining</h6><span>Dining</span></div></div>
                         </div>
                         <div class="gl-tile" data-prop="mangobloom" data-cat="property" data-title="Mangobloom Gallery" data-caption="Mangobloom River Resort">
                             <img src="assets/img/egallery11.jpg" alt="Mangobloom Gallery" loading="lazy">
@@ -614,3 +530,21 @@
 
 </body>
 </html>
+'''
+
+with open('gallery.html', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# Find where main starts and cut everything from there
+idx = content.find(HERO_END_MARKER)
+if idx == -1:
+    print("ERROR: Could not find main marker")
+else:
+    new_content = content[:idx] + NEW_MAIN
+    with open('gallery.html', 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print(f"Done! File size: {len(new_content)} chars")
+    print(f"Section headers: {new_content.count('gl-section-header')}")
+    print(f"Tiles: {new_content.count('class=\"gl-tile\"') + new_content.count('class=\"gl-tile featured\"')}")
+    print(f"Featured tiles: {new_content.count('class=\"gl-tile featured\"')}")
+    print(f"Stacked groups: {new_content.count('class=\"gl-tile-stack\"')}")

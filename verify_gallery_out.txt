@@ -1,0 +1,11 @@
+Total chars: 44370
+Has old galleryItems: False
+Has old about section: False
+Has gl-grid: True
+Has gl-lightbox: True
+La Perle cards: 14
+Banyan cards: 12
+Excel Corbett cards: 9
+Mangobloom cards: 6
+Total gl-card count: 50
+Old GB-media still present: False

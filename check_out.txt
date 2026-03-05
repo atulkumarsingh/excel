@@ -1,0 +1,10 @@
+gallery.html size: 44051 chars
+Section headers: 6
+Featured tiles: 8
+Stacked groups: 8
+Gold section dividers: 12
+Section titles: 6
+Has JS controller: True
+Mobile 2-col CSS: True
+Mobile 900px breakpoint: True
+Mobile 600px breakpoint: True

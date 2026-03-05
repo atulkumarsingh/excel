@@ -1,0 +1,511 @@
+/* ================================================================
+   GALLERY PAGE — MARRIOTT-INSPIRED REDESIGN v2
+   Scoped to .gl-* — no conflicts with existing CSS
+   ================================================================ */
+
+/* ---- STICKY FILTER SECTION ---------------------------------------- */
+.gl-filter-section {
+    background: #fff;
+    border-bottom: 1px solid #e8e0d6;
+    position: sticky;
+    top: 70px;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ---- PROPERTY TAB BAR --------------------------------------------- */
+.gl-property-bar {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-bottom: 1px solid #f0ece6;
+}
+
+.gl-property-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.gl-prop-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #6b6059;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 18px 22px 15px;
+    cursor: pointer;
+    transition: color 0.25s, border-color 0.25s;
+    white-space: nowrap;
+}
+
+.gl-prop-btn:hover {
+    color: #8b6914;
+}
+
+.gl-prop-btn.active {
+    color: #8b6914;
+    border-bottom-color: #aa7c4a;
+    font-weight: 600;
+}
+
+/* ---- CATEGORY PILLS ----------------------------------------------- */
+.gl-cat-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 12px 20px;
+}
+
+.gl-cat-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.gl-cat-btn {
+    flex-shrink: 0;
+    background: #f5f1ec;
+    border: 1px solid #e0d8cf;
+    border-radius: 40px;
+    color: #5a4e44;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.gl-cat-btn:hover {
+    background: #e8ddd1;
+    border-color: #c4b49e;
+}
+
+.gl-cat-btn.active {
+    background: #8b6914;
+    border-color: #8b6914;
+    color: #fff;
+}
+
+/* ---- GALLERY MAIN AREA -------------------------------------------- */
+/*
+  IMPORTANT: main.js adds 'reveal-on-scroll' (opacity:0) to all 'main section'
+  elements. Since .gl-section is very tall, the 12% IntersectionObserver threshold
+  may never fire. We override here to ensure the gallery is ALWAYS fully visible.
+*/
+.gl-section,
+.gl-section.reveal-on-scroll,
+.gl-section.reveal-visible,
+.gl-filter-section,
+.gl-filter-section.reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+/* Also ensure all children stay visible regardless of parent animation */
+.gl-prop-section,
+.gl-tile-grid,
+.gl-tile,
+.gl-section-header {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+.gl-section {
+    background: #f8f5f1;
+    padding: 0 0 80px;
+}
+
+/* ---- PHOTO COUNT --------------------------------------------------- */
+.gl-count-row {
+    text-align: center;
+    padding: 28px 0 0;
+    margin-bottom: 0;
+}
+
+.gl-count-row span {
+    font-family: 'EB Garamond', serif;
+    font-size: 13px;
+    color: #9a8a7a;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* ---- PROPERTY SECTION BLOCK --------------------------------------- */
+.gl-prop-section {
+    padding: 0 20px;
+    margin: 40px 0 0;
+    transition: opacity 0.3s;
+}
+
+.gl-prop-section.hidden {
+    display: none;
+}
+
+/* Property section title + divider */
+.gl-section-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.gl-section-divider {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #c9a96e, #e8ddd0);
+}
+
+.gl-section-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5a4035;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.gl-section-title-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.gl-section-divider-right {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to left, #c9a96e, #e8ddd0);
+}
+
+/* ---- TILE GRID --------------------------------------------------- */
+/*
+  KEY: grid-auto-rows sets a FIXED row height.
+  Small tiles  = 1 col × 1 row  (240px)
+  Featured     = 2 col × 2 rows (480px + gap)
+  No flexbox stacks — the grid handles everything automatically.
+  Result: zero blank spaces, images always fill their cell.
+*/
+.gl-tile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 240px;
+    grid-auto-flow: dense;
+    /* FILL GAPS — pulls tiles into holes left by featured spans */
+    gap: 6px;
+}
+
+/* Default tile — 1×1 */
+.gl-tile {
+    position: relative;
+    overflow: hidden;
+    background: #e8e0d8;
+    /* warm placeholder, never a white hole */
+    cursor: pointer;
+    /* NO aspect-ratio — height is fully controlled by grid-auto-rows */
+    transition: opacity 0.35s;
+}
+
+.gl-tile.hidden {
+    display: none;
+}
+
+/* Featured tile — spans 2 columns AND 2 rows */
+.gl-tile.featured {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* Remove old stack rules (stack divs are no longer used) */
+
+/* Image pan & zoom on hover */
+.gl-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gl-tile:hover img {
+    transform: scale(1.06);
+}
+
+/* Hover overlay */
+.gl-tile-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, transparent 55%);
+    opacity: 0;
+    transition: opacity 0.35s;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px 18px;
+}
+
+.gl-tile:hover .gl-tile-overlay {
+    opacity: 1;
+}
+
+.gl-tile-label h6 {
+    color: #fff;
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    margin: 0 0 4px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.gl-tile-label span {
+    display: inline-block;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.9;
+    background: rgba(170, 124, 74, 0.85);
+    padding: 2px 8px;
+    border-radius: 2px;
+}
+
+/* ---- EMPTY STATE -------------------------------------------------- */
+.gl-empty {
+    display: none;
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.gl-empty.visible {
+    display: block;
+}
+
+.gl-empty p {
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    color: #8b7b6b;
+}
+
+/* ---- FULLSCREEN LIGHTBOX ------------------------------------------ */
+.gl-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 6, 4, 0.97);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.gl-lightbox.open {
+    display: flex;
+}
+
+.gl-lb-img-wrap {
+    position: relative;
+    max-width: 90vw;
+    max-height: 78vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gl-lb-img-wrap img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 2px;
+    user-select: none;
+    pointer-events: none;
+}
+
+.gl-lb-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 38px;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.gl-lb-close:hover {
+    opacity: 1;
+}
+
+.gl-lb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 10;
+}
+
+.gl-lb-arrow:hover {
+    background: rgba(170, 124, 74, 0.7);
+    border-color: #aa7c4a;
+}
+
+.gl-lb-arrow.left {
+    left: 14px;
+}
+
+.gl-lb-arrow.right {
+    right: 14px;
+}
+
+.gl-lb-caption {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 18px;
+    padding: 0 24px;
+}
+
+.gl-lb-counter {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* Loading shimmer */
+.gl-lb-img-wrap.loading::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+    background-size: 400% 100%;
+    animation: gl-shimmer 1.2s linear infinite;
+}
+
+@keyframes gl-shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+/* ---- RESPONSIVE --------------------------------------------------- */
+/* Tablet (≤ 900px): 2-column grid, smaller row height */
+@media (max-width: 900px) {
+    .gl-prop-btn {
+        font-size: 11px;
+        padding: 15px 14px 12px;
+    }
+
+    .gl-tile-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 200px;
+        grid-auto-flow: dense;
+        gap: 5px;
+    }
+
+    /* Featured spans both 2 cols + 2 rows on tablet too */
+    .gl-tile.featured {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .gl-prop-section {
+        padding: 0 10px;
+    }
+}
+
+/* Mobile (≤ 600px): 2-column, fixed row height */
+@media (max-width: 600px) {
+    .gl-filter-section {
+        top: 58px;
+    }
+
+    .gl-prop-btn {
+        font-size: 10.5px;
+        padding: 12px 12px 10px;
+        letter-spacing: 0.06em;
+    }
+
+    .gl-cat-btn {
+        font-size: 10px;
+        padding: 5px 12px;
+    }
+
+    .gl-cat-bar {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+
+    .gl-tile-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 160px;
+        /* fixed — no gaps ever */
+        grid-auto-flow: dense;
+        gap: 4px;
+    }
+
+    /* Featured: full width, double height on mobile */
+    .gl-tile.featured {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    /* just full-width on mobile */
+
+    .gl-prop-section {
+        padding: 0 8px;
+        margin-top: 28px;
+    }
+
+    .gl-section-title {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+    }
+
+    .gl-lb-arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .gl-lb-arrow.left {
+        left: 4px;
+    }
+
+    .gl-lb-arrow.right {
+        right: 4px;
+    }
+}

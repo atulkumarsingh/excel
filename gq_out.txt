@@ -1,0 +1,9 @@
+[OK] banyan-retreat.html: 3 GET QUOTE, 3 form.html links, 0 broken #
+[OK] excel-bhimtal.html: 3 GET QUOTE, 3 form.html links, 0 broken #
+[OK] excel-corbett.html: 3 GET QUOTE, 3 form.html links, 0 broken #
+[OK] excel-nainital.html: 3 GET QUOTE, 3 form.html links, 0 broken #
+[OK] form.html: 1 GET QUOTE, 0 form.html links, 0 broken #
+[OK] index.html: 3 GET QUOTE, 0 form.html links, 0 broken #
+[OK] jim-corbett.html: 3 GET QUOTE, 3 form.html links, 0 broken #
+[OK] la-perle.html: 3 GET QUOTE, 3 form.html links, 0 broken #
+[OK] mangobloom-resort.html: 3 GET QUOTE, 3 form.html links, 0 broken #

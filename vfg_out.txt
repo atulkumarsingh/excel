@@ -1,0 +1,14 @@
+=== gallery.html ===
+File size: 43587 chars
+gl-tile-stack remaining: 1
+Featured tiles (span 2 rows): 8
+Regular tiles: 47
+Section headers: 6
+
+=== gallery.css ===
+grid-auto-rows present: True
+span 2 row: True
+aspect-ratio on tiles: False
+Mobile 160px rows: True
+Tablet 200px rows: True
+Desktop 240px rows: True
